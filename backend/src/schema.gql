@@ -1,0 +1,46 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+directive @upper on FIELD_DEFINITION
+
+type Template {
+  _id: String!
+  name: String!
+
+  """Groups"""
+  groups: [TemplateGroup!]!
+}
+
+type TemplateGroup {
+  _id: String!
+  name: String!
+
+  """Items"""
+  items: [String!]!
+}
+
+type Query {
+  template(id: String!): Template!
+  getAll: [Template!]!
+}
+
+type Mutation {
+  addGroup(templateId: String!, groupData: AddGroupDto!): Template!
+  addItemToGroup(templateId: String!, templateGroupId: String!, item: String!): Template!
+  createTemplate(templateData: CreateTemplateDto!): Template!
+  removeTemplate(id: String!): Template!
+  removeTemplateGroup(templateId: String!, templateGroupId: String!): Template!
+}
+
+input AddGroupDto {
+  name: String!
+}
+
+input CreateTemplateDto {
+  name: String!
+}
+
+type Subscription {
+  templateCreated: Template!
+}
