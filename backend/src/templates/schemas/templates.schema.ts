@@ -31,6 +31,10 @@ export class TemplateGroup {
   @Prop({ required: true })
   name: string;
 
+  @Field(() => String)
+  @Prop({ required: true, default: 'en' })
+  lang: string;
+
   @Field(() => [String], { description: 'Items' })
   @Prop()
   items: string[];
