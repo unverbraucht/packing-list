@@ -2,8 +2,9 @@
     "name": "packing-backend",
     "version": "1.0.0",
     "description": "Packing List BE",
-    "license": "MIT",
+    "license": "ISC",
     "scripts": {
+        "mongodb": "mongod --dbpath ./data",
         "prebuild": "rimraf dist",
         "build": "nest build",
         "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
