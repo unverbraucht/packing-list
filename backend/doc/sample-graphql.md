@@ -20,7 +20,7 @@ mutation {
 mutation {
   addGroup(templateId: "62b80c02be08f7bb4a94a9ec",
   groupData: {
-    name: "Swimming things",
+    name: "Clothes",
     lang: "en"
   }) {
     _id,
@@ -37,6 +37,7 @@ mutation {
   name
   _id
   groups {
+    _id
     items
     name,
     lang

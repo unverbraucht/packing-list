@@ -19,7 +19,7 @@ export class TemplatesService {
   }
 
   async findAll(): Promise<Template[]> {
-    return this.templateModel.find().exec();
+    return this.templateModel.find().populate("groups").exec();
   }
 
   async findOneById(id: string): Promise<Template> {
@@ -34,6 +34,10 @@ export class TemplatesService {
   }
 
   async addGroup(id: string, newGroupDto: AddGroupDto): Promise<Template> {
+    // // Sanity check: empty items instead of null
+    // if (newGroupDto.items == null || newGroupDto.items == undefined) {
+    //   newGroupDto.items = [];
+    // }
     const template = await this.templateModel.findOne({ _id: id }).populate('groups').exec();
     if (!template) {
       return null;
@@ -44,7 +48,7 @@ export class TemplatesService {
       return template;
     }
     const newGroupDoc = new this.templateGroupModel(newGroupDto);
-    newGroupDoc.items = [];
+    // newGroupDoc.items = [];
     const newGroup = await newGroupDoc.save();
     newGroup.name = newGroupDto.name;
     groups.push(newGroup);

@@ -13,7 +13,7 @@ export class Template {
   _id: mongoose.Schema.Types.ObjectId;
 
   @Field(() => String)
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true, unique: true, index: true })
   name: string;
 
   @Field(() => [TemplateGroup], { description: 'Groups' })
@@ -36,7 +36,7 @@ export class TemplateGroup {
   lang: string;
 
   @Field(() => [String], { description: 'Items' })
-  @Prop()
+  @Prop({ default: []})
   items: string[];
 }
 
