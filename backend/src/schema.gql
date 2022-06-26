@@ -36,6 +36,8 @@ type Mutation {
 
 input AddGroupDto {
   name: String!
+  lang: String!
+  items: [String!] = []
 }
 
 input CreateTemplateDto {

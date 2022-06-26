@@ -1,7 +1,7 @@
 ```
 mutation {
   createTemplate(templateData: {
-    name: "test"
+    name: "Ila Italy"
   }) {
     _id
   }
@@ -18,13 +18,15 @@ mutation {
 
 ```
 mutation {
-  addGroup(templateId: "629c9ab38055c533b56c5760",
+  addGroup(templateId: "62b80c02be08f7bb4a94a9ec",
   groupData: {
-    name: "testgroup3"
+    name: "Swimming things",
+    lang: "en"
   }) {
     _id,
     groups {
-      name
+      name,
+      lang
     }
   }
 }
@@ -36,7 +38,8 @@ mutation {
   _id
   groups {
     items
-    name
+    name,
+    lang
   }
 }}
 ```
