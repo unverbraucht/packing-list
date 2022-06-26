@@ -10,9 +10,10 @@ import { upperDirectiveTransformer } from './common/directives/upper-case.direct
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost/nest'),
+    MongooseModule.forRoot('mongodb://127.0.0.1/nest'),
     TemplatesModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
+      path: '/api',
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       transformSchema: schema => upperDirectiveTransformer(schema, 'upper'),
