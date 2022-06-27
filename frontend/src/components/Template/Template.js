@@ -18,7 +18,7 @@ const GET_TEMPLATES = gql`
 function Template() {
   let params = useParams();
   return (
-   <div> I am a template, { params.templateId } </div>
+    <div> I am a template, { params.templateId } </div>
   );
 }
 

@@ -23,7 +23,7 @@ export class TemplatesService {
   }
 
   async findOneById(id: string): Promise<Template> {
-    return this.templateModel.findOne({ _id: id }).exec();
+    return this.templateModel.findOne({ _id: id }).populate("groups").exec();
   }
 
   async delete(id: string) {
@@ -70,7 +70,7 @@ export class TemplatesService {
     }
     return null;
     //template.groups.id(templateGroupId).remove();
-    
+
   }
 
   async addItemToGroup(
