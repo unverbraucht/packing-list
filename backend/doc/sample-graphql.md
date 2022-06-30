@@ -47,14 +47,15 @@ mutation {
 
 ```
 mutation {
-  addItemToGroup(templateId: "629c9ab38055c533b56c5760", templateGroupId: "629c9ac18055c533b56c5763", item: "Contacts") {
-    name,
-    _id,
-    groups {
-      items,
-      name,
-      lang
-    }
-  }
+ addItemToGroup (
+	templateGroupId: "62b8103423387bbf027fa2f2",
+	item: "sunscreen"
+) {
+            name,
+            lang,
+            items,
+            _id
 }
+}
+
 ```
