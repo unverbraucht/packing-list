@@ -51,11 +51,11 @@ mutation {
 	templateGroupId: "62b8103423387bbf027fa2f2",
 	item: "sunscreen"
 ) {
-            name,
-            lang,
-            items,
-            _id
-}
+    name,
+    lang,
+    items,
+    _id
+  }
 }
 
 ```
