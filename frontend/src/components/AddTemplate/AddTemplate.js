@@ -16,16 +16,12 @@ mutation createTemplate($name: String! ) {
 function AddTemplate( { onDataSubmitted } ) {
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
-  const [createTemplate, { called, loading, error, reset }] = useMutation(CREATE_TEMPLATE);
+  const [createTemplate, { loading, error }] = useMutation(CREATE_TEMPLATE);
   if (loading) {
     return <p>Loading...</p>;
   }
   if (error) {
     return <p>Enter an unique name</p>;
-  }
-  if (called) {
-    ;
-    reset();
   }
 
   const onSubmit = (formData) => {
