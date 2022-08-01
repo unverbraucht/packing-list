@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './index.css';
 import TemplateListPage from './pages/TemplateList/TemplateList';
 import reportWebVitals from './reportWebVitals';
-import Template from './components/Template/Template';
+import TemplatePage from './pages/Template/Template';
 import {
   ApolloClient,
   InMemoryCache,
@@ -24,7 +24,7 @@ root.render(
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<TemplateListPage />} />
-          <Route path="template/:templateId" element={<Template />} />
+          <Route path="template/:templateId" element={<TemplatePage />} />
         </Routes>
       </BrowserRouter>
     </ApolloProvider>

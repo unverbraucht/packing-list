@@ -1,4 +1,3 @@
-import { useParams } from "react-router-dom";
 import { gql, useQuery } from "@apollo/client";
 
 const GET_TEMPLATE = gql`
@@ -16,11 +15,11 @@ const GET_TEMPLATE = gql`
   }`;
 
 
-function Template( {_id} ) {
-  const params = useParams();
+function Template( { templateId } ) {
+
   const { loading, error, data } = useQuery(GET_TEMPLATE, {
     variables: {
-      id: params.templateId
+      id: templateId
     }
   });
   if (loading) {
