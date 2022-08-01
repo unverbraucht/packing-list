@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { useForm } from "react-hook-form";
 import { gql, useMutation } from '@apollo/client';
@@ -12,21 +13,28 @@ mutation createTemplate($name: String! ) {
   }
 }`;
 
-function AddTemplate() {
+function AddTemplate( { onDataSubmitted } ) {
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
-  const [createTemplate, { loading, error }] = useMutation(CREATE_TEMPLATE);
+  const [createTemplate, { called, loading, error, reset }] = useMutation(CREATE_TEMPLATE);
   if (loading) {
     return <p>Loading...</p>;
   }
   if (error) {
     return <p>Enter an unique name</p>;
   }
+  if (called) {
+    ;
+    reset();
+  }
 
-  const onSubmit = (data) => {
+  const onSubmit = (formData) => {
     createTemplate( {
       variables: {
-        name: data.templateName
+        name: formData.templateName
+      },
+      onCompleted: (data) => {
+        onDataSubmitted( data.createTemplate._id );
       }
     })
   }
@@ -45,6 +53,10 @@ function AddTemplate() {
       </form>
     </div>
   )
+}
+
+AddTemplate.propTypes = {
+  onDataSubmitted: PropTypes.func.isRequired
 }
 
 export default AddTemplate;
