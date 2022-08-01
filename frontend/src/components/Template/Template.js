@@ -1,4 +1,7 @@
+import { useState } from 'react';
+
 import { gql, useQuery } from "@apollo/client";
+import AddGroupToTemplate from "../AddTemplateGroup/AddTemplateGroup";
 
 const GET_TEMPLATE = gql`
   query TemplateQuery ($id: String!) {
@@ -16,12 +19,18 @@ const GET_TEMPLATE = gql`
 
 
 function Template( { templateId } ) {
+  const [showAddForm, setShowAddForm] = useState(false);
 
-  const { loading, error, data } = useQuery(GET_TEMPLATE, {
+  const { loading, error, data, refetch } = useQuery(GET_TEMPLATE, {
     variables: {
       id: templateId
     }
   });
+
+  const  onDataSubmitted = () => {
+    refetch();
+    setShowAddForm(false);
+  }
   if (loading) {
     return <p>Loading...</p>;
   }
@@ -36,10 +45,12 @@ function Template( { templateId } ) {
       <li> { item } </li>
     ));
     return(
-      <div key={ group._id }>
-          { group.name }
-          { itemList }
-      </div>
+      <>
+        <div key={ group._id }>
+            { group.name }
+            { itemList }
+        </div>
+      </>
     )
   })
 
@@ -47,6 +58,14 @@ function Template( { templateId } ) {
     <div>
       <h1> { templateName } </h1>
       <div>{ groupList }</div>
+      <button onClick={() => setShowAddForm(!showAddForm)}>
+          { showAddForm ? "-" : "+" }
+        </button>
+        {
+          showAddForm && (
+            <AddGroupToTemplate onDataSubmitted={ onDataSubmitted } templateId={templateId} templateName={templateName} />
+          )
+        }
     </div>
   );
 }
