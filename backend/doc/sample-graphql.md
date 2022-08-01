@@ -57,3 +57,12 @@ mutation {
   }
 }
 ```
+
+```
+query TemplateQuery ($id: String!) { 
+  template(id: $id) {
+    name,
+    _id
+  }
+}
+```
