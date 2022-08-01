@@ -43,17 +43,16 @@ export class TemplatesResolver {
     return template;
   }
 
-  @Mutation(returns => Template)
+  @Mutation(returns => TemplateGroup)
   async addItemToGroup(
-    @Args('templateId') templateId: string,
     @Args('templateGroupId') templateGroupId: string,
     @Args('item') item: string,
-  ): Promise<Template> {
-    const template = await this.templateService.addItemToGroup(templateId, templateGroupId, item);
-    if (!template) {
-      throw new NotFoundException(template);
+  ): Promise<TemplateGroup> {
+    const group = await this.templateService.addItemToGroup(templateGroupId, item);
+    if (!group) {
+      throw new NotFoundException(group);
     }
-    return template;
+    return group;
   }
 
   @Mutation(returns => Template)

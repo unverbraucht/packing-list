@@ -28,7 +28,7 @@ type Query {
 
 type Mutation {
   addGroup(templateId: String!, groupData: AddGroupDto!): Template!
-  addItemToGroup(templateId: String!, templateGroupId: String!, item: String!): Template!
+  addItemToGroup(templateGroupId: String!, item: String!): TemplateGroup!
   createTemplate(templateData: CreateTemplateDto!): Template!
   removeTemplate(id: String!): Template!
   removeTemplateGroup(templateId: String!, templateGroupId: String!): Template!

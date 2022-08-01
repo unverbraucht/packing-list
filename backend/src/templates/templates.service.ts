@@ -23,7 +23,7 @@ export class TemplatesService {
   }
 
   async findOneById(id: string): Promise<Template> {
-    return this.templateModel.findOne({ _id: id }).exec();
+    return this.templateModel.findOne({ _id: id }).populate("groups").exec();
   }
 
   async delete(id: string) {
@@ -70,20 +70,13 @@ export class TemplatesService {
     }
     return null;
     //template.groups.id(templateGroupId).remove();
-    
+
   }
 
   async addItemToGroup(
-    templateId: string,
     groupId: string,
-    newLabel: string): Promise<Template> {
-    const template = await this.templateModel.findOne({ _id: templateId }).populate('groups').exec();
-    if (!template) {
-      return null;
-    }
-    const groups = await template.groups;
-    // const group = groups.id
-    const group = groups.find(({ _id }) => _id.toString() == groupId);
+    newLabel: string): Promise<TemplateGroup> {
+    const group = await this.templateGroupModel.findOne({ _id: groupId }).exec();
     if (!group) {
       // Group doesn't exist
       return null;
@@ -92,9 +85,9 @@ export class TemplatesService {
     // const groups = await template.groups;
     if (group.items.find((label) => label == newLabel)) {
       // Already exists
-      return template;
+      return group;
     }
     group.items.push(newLabel);
-    return template.save();
+    return await group.save();
   }
 }
