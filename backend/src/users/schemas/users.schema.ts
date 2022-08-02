@@ -28,7 +28,7 @@ export class User {
 
   @Field(() => [String], { description: 'Roles' })
   @Prop({ required: true, default: ['user']})
-  roles: [string];
+  roles: string[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

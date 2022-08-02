@@ -14,6 +14,6 @@ export class RegisterUserDto {
   @Field()
   password: string
 
-  @Field()
+  @Field(type => [String])
   roles: string[];
 }

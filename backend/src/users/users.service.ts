@@ -7,24 +7,8 @@ import { User, UserDocument, LeanUserDocument } from './schemas/users.schema';
 import { RegisterUserDto } from './dto/register-user.dto';
 
 import { saltRounds } from '../auth/constants';
-
-// This should be a real class/interface representing a user entity
-// export type User = any;
-
 @Injectable()
 export class UsersService {
-  // private readonly users = [
-  //   {
-  //     userId: 1,
-  //     username: 'john',
-  //     password: 'changeme',
-  //   },
-  //   {
-  //     userId: 2,
-  //     username: 'maria',
-  //     password: 'guess',
-  //   },
-  // ];
 
   constructor(
     @InjectModel(User.name) private userModel: Model<UserDocument>,
@@ -35,7 +19,18 @@ export class UsersService {
     if (!user) {
       user = new this.userModel(registerUserDto);
     }
-    user.localPassword = await hash(registerUserDto.password, saltRounds);
+    if (registerUserDto.password) {
+      user.localPassword = await hash(registerUserDto.password, saltRounds);
+    }
+    if (registerUserDto.name) {
+      user.name = registerUserDto.name;
+    }
+    if (registerUserDto.email) {
+      user.email = registerUserDto.email;
+    }
+    if (registerUserDto.roles) {
+      user.roles = registerUserDto.roles;
+    }
     return user.save();
   }
 
@@ -55,5 +50,9 @@ export class UsersService {
    */
   async findOneByEmailLean(email: string): Promise<LeanUserDocument | undefined> {
     return this.userModel.findOne({ email }).lean().exec();
+  }
+
+  update(user: User, email: string) {
+    this.userModel.replaceOne({ email }, user);
   }
 }
