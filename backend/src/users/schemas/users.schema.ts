@@ -1,10 +1,13 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { ObjectType, Field } from '@nestjs/graphql';
-
+import { ObjectType, Field, Extensions } from '@nestjs/graphql';
 import * as mongoose from 'mongoose';
+
+import { Role } from '../../auth/role';
+import { checkOwnEmailMiddleware } from '../users.fields';
 
 export type UserDocument = User & mongoose.Document;
 export type LeanUserDocument = mongoose.LeanDocument<User>;
+
 
 @Schema()
 @ObjectType()
@@ -18,7 +21,8 @@ export class User {
   @Prop()
   tokens: [string];
 
-  @Field(() => String)
+  @Extensions({ role: Role.ADMIN })
+  @Field(() => String, { middleware: [checkOwnEmailMiddleware] })
   @Prop({ required: true })
   email: string;
 

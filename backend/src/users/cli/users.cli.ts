@@ -30,6 +30,9 @@ export class UsersUpdateCommand extends CommandRunner {
     const existingUser = await this.usersService.findOneByEmail(email);
     const creationDto = new RegisterUserDto();
     creationDto.name = options.name;
+    if (!existingUser && !options.name) {
+      creationDto.name = email;
+    }
     creationDto.email = email;
     if (!options.password && !existingUser) {
       throw Error("We need a password when creating a new user");

@@ -19,26 +19,22 @@ export class TemplatesService {
   }
 
   async findAll(): Promise<Template[]> {
-    return this.templateModel.find().populate("groups").exec();
+    return this.templateModel.find().populate('owner').populate("groups").exec();
   }
 
   async findOneById(id: string): Promise<Template> {
     return this.templateModel.findOne({ _id: id }).populate("groups").exec();
   }
 
-  async delete(id: string) {
+  async delete(id: string, userId: string) {
     const deletedTemplate = await this.templateModel
-      .findByIdAndRemove({ _id: id })
+      .findByIdAndRemove({ _id: id, owner: userId })
       .exec();
     return deletedTemplate;
   }
 
-  async addGroup(id: string, newGroupDto: AddGroupDto): Promise<Template> {
-    // // Sanity check: empty items instead of null
-    // if (newGroupDto.items == null || newGroupDto.items == undefined) {
-    //   newGroupDto.items = [];
-    // }
-    const template = await this.templateModel.findOne({ _id: id }).populate('groups').exec();
+  async addGroup(id: string, newGroupDto: AddGroupDto, userId: string): Promise<Template> {
+    const template = await this.templateModel.findOne({ _id: id, owner: userId }).populate('groups').exec();
     if (!template) {
       return null;
     }
@@ -55,8 +51,8 @@ export class TemplatesService {
     return template.save();
   }
 
-  async deleteGroup(templateId: string, templateGroupId: string) {
-    const template = await this.templateModel.findOne({ _id: templateId }).exec();
+  async deleteGroup(templateId: string, templateGroupId: string, userId: string) {
+    const template = await this.templateModel.findOne({ _id: templateId, owner: userId }).exec();
     if (!template) {
       return null;
     }
@@ -75,8 +71,9 @@ export class TemplatesService {
 
   async addItemToGroup(
     groupId: string,
-    newLabel: string): Promise<TemplateGroup> {
-    const group = await this.templateGroupModel.findOne({ _id: groupId }).exec();
+    newLabel: string,
+    userId: string): Promise<TemplateGroup> {
+    const group = await this.templateGroupModel.findOne({ _id: groupId, owner: userId }).exec();
     if (!group) {
       // Group doesn't exist
       return null;

@@ -1,4 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql';
+import { User } from '../../users/schemas/users.schema';
 
 @InputType()
 export class AddGroupDto {
@@ -10,4 +11,6 @@ export class AddGroupDto {
 
   @Field(type => [String])
   items: string[] = []
+
+  owner: User
 }
