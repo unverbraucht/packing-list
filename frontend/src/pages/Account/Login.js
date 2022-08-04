@@ -3,7 +3,7 @@ import React, { useState, useContext } from 'react';
 import { useForm } from "react-hook-form";
 import { UserContext } from '../../UserContext';
 
-// import styles from './AddTemplate.module.css';
+import styles from './Login.module.css';
 
 function Login() {
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
@@ -45,14 +45,15 @@ function Login() {
   //console.log(watch("templateName")); // watch input value by passing the name of it
 
   return (
-    <div className="field">
-      <form onSubmit={handleSubmit(onSubmit)} className="field">
+    <div className={ styles.loginWrapper }>
+      <h3> Login </h3>
+      <form onSubmit={handleSubmit(onSubmit)} className={ "field " + styles.loginForm }>
         <input {...register("username", { required: true })} placeholder="username"/>
         {errors.username && <span>This field is required</span>}
         <input type="password" {...register("password", { required: true })} placeholder="password"/>
         {errors.password && <span>This field is required</span>}
-
-        <input className={ "button small right-round responsive" } type="submit" value="Add" />
+        <input className={ "button primary small round responsive " + styles.formBtn } type="submit" value="Login" />
+        <div> Don't have an account yet? Register <a href="#">here</a> </div>
       </form>
     </div>
   )

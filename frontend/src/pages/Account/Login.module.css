@@ -1,0 +1,13 @@
+.loginWrapper {
+  text-align: center;
+}
+
+.loginForm {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.formBtn {
+  margin: 32rem 0;
+}

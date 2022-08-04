@@ -42,11 +42,11 @@ function AddTemplate( { onDataSubmitted } ) {
     <div className="field">
       <form onSubmit={handleSubmit(onSubmit)} className={ styles.field }>
         {/* include validation with required or other standard HTML validation rules */}
-        <input {...register("templateName", { required: true })} placeholder="Add a new template"/>
+        <input {...register("templateName", { required: true })} placeholder="Add a new trip"/>
         {/* errors will return when field validation fails  */}
         {errors.templateName && <span>This field is required</span>}
 
-        <input className={ "button small right-round responsive " + styles.custom } type="submit" value="Add" />
+        <input className={ "button primary small right-round responsive " + styles.custom } type="submit" value="Add" />
       </form>
     </div>
   )

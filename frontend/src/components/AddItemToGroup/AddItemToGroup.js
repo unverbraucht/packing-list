@@ -55,7 +55,7 @@ function AddItemToGroupForm( { onDataSubmitted, groupId } ) {
         {/* errors will return when field validation fails  */}
         {errors.itemName && <span>This field is required</span>}
 
-        <input className={ "button small right-round responsive " + styles.custom } type="submit" value="Add"/>
+        <input className={ "button primary small right-round responsive " + styles.custom } type="submit" value="Add"/>
       </form>
     </div>
   )

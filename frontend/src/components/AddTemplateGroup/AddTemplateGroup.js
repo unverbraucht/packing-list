@@ -49,7 +49,7 @@ function AddGroupToTemplate( { templateId, templateName, onDataSubmitted } ) {
         {/* errors will return when field validation fails  */}
         {errors.groupName && <span>This field is required</span>}
 
-        <input className={ "button small right-round responsive " + styles.custom } type="submit" value="Add"/>
+        <input className={ "button primary small right-round responsive " + styles.custom } type="submit" value="Add"/>
       </form>
     </div>
   )

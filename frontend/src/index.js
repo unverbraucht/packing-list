@@ -52,7 +52,7 @@ root.render(
         <BrowserRouter>
           <nav className="top">
             <div className='navbarLeft'></div>
-            <a href="/"><h1>PackApp</h1></a>
+            <a href="/"><h3>PackApp</h3></a>
             <div className='navbarRight'><a href="/account"> account </a></div>
           </nav>
           <main className="responsive">

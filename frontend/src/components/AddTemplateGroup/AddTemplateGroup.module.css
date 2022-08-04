@@ -1,13 +1,12 @@
 .field {
   composes: field from global;
   display: grid;
-  grid-template-columns: 70% 30%;
+  grid-template-columns: 80% 20%;
   height: 100%;
-  margin-bottom: 0;
+  margin: 12rem 0 0;
 }
 .custom {
   height: 100% !important;
-  background-color: var(--primary) !important;
 }
 
 @media screen and (min-width: 679px) {

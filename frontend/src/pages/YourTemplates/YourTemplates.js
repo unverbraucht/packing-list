@@ -12,10 +12,10 @@ function YourTemplates() {
   }
   return (
     <div className="App">
-      <h1> Your Templates </h1>
+      <h3> Your Trips </h3>
       <TemplateList lastAddedId={ lastAddedId }></TemplateList>
-      <button onClick={() => setShowAddForm(!showAddForm)}>
-        { showAddForm ? "-" : "+" }
+      <button className="button primary round" onClick={() => setShowAddForm(!showAddForm)}>
+        { showAddForm ? "-" : "+ New trip" }
       </button>
       {
         showAddForm && (
