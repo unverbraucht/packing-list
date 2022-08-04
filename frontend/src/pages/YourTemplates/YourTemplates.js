@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 
-import './TemplateList.css';
 import TemplateList from '../../components/TemplateList/TemplateList'
 import AddTemplate from '../../components/AddTemplate/AddTemplate';
 
-function TemplateListPage() {
+function YourTemplates() {
   const [showAddForm, setShowAddForm] = useState(false);
   const [lastAddedId, setLastAddedId] = useState("");
   const  onDataSubmitted = createdId => {
@@ -28,4 +27,4 @@ function TemplateListPage() {
   );
 }
 
-export default TemplateListPage;
+export default YourTemplates;

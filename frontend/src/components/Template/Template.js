@@ -4,6 +4,8 @@ import { gql, useQuery } from "@apollo/client";
 import AddGroupToTemplate from "../AddTemplateGroup/AddTemplateGroup";
 import ItemList from './ItemList';
 
+import styles from './Template.module.css';
+
 const GET_TEMPLATE = gql`
   query TemplateQuery ($id: String!) {
     template(id: $id) {
@@ -19,7 +21,7 @@ const GET_TEMPLATE = gql`
   }`;
 
 
-function Template( { templateId } ) {
+function Template({ templateId }) {
   const [showAddForm, setShowAddForm] = useState(false);
 
   const { loading, error, data, refetch } = useQuery(GET_TEMPLATE, {
@@ -46,9 +48,9 @@ function Template( { templateId } ) {
   return (
     <div>
       <h1> { templateName } </h1>
-      <div>{ groupList }</div>
-      <button onClick={() => setShowAddForm(!showAddForm)}>
-        { showAddForm ? "-" : "+" }
+      <div className={ styles.templateCards } >{ groupList }</div>
+      <button className="small round" onClick={() => setShowAddForm(!showAddForm)}>
+        { showAddForm ? "-" : "+ Add a category" }
       </button>
       {
         showAddForm && (

@@ -1,0 +1,12 @@
+.card+.card {
+  margin-top: unset;
+}
+
+.card {
+  composes: card from global;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: fit-content;
+}

@@ -3,6 +3,10 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 
+import './TemplateList.css';
+import cardStyle from '../Template/Template.module.css';
+
+// icon from https://www.seekpng.com/
 
 const GET_TEMPLATES = gql`
   query {
@@ -29,17 +33,16 @@ function TemplateList ({ lastAddedId }) {
   }
 
   const list = data.getAll.map(item => (
-    <li key={ item._id }>
-      <Link to={`/template/${item._id}`}>
-        { item.name }
-      </Link>
-    </li>
+    <Link key={ item._id } to={`/template/${item._id}`} className="card">
+      { item.name }
+      <img width="180px" src={require('../../assets/travel.png')} alt="suitcase icon"/>
+    </Link>
   ))
 
   return (
-    <ul>
+    <div className={cardStyle.templateCards}>
       { list }
-    </ul>
+    </div>
   );
 }
 
