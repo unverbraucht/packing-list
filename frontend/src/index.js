@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "material-dynamic-colors";
+import "beercss";
 import './index.css';
-import TemplateListPage from './pages/TemplateList/TemplateList';
+import YourTemplatesPage from './pages/YourTemplates/YourTemplates';
 import reportWebVitals from './reportWebVitals';
 import TemplatePage from './pages/Template/Template';
 import {
@@ -22,10 +24,14 @@ root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<TemplateListPage />} />
-          <Route path="template/:templateId" element={<TemplatePage />} />
-        </Routes>
+        <nav class="top"><h1>Packing List App</h1></nav>
+        <main className="responsive">
+          <Routes>
+            <Route path="/" element={<YourTemplatesPage />} />
+            <Route path="template/:templateId" element={<TemplatePage />} />
+          </Routes>
+        </main>
+        <nav className="bottom"><div>About Us</div></nav>
       </BrowserRouter>
     </ApolloProvider>
   </React.StrictMode>

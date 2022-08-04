@@ -1,0 +1,25 @@
+.templateCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-auto-rows: auto;
+  grid-gap: 1em;
+  margin: 2em 0.5em;
+}
+
+.card {
+  composes: card from global;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: baseline;
+  height: fit-content;
+}
+
+.card > * {
+  height: fit-content;
+}
+.actionGroup {
+  display: flex;
+  padding-top: 1em;
+}
+

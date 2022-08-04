@@ -2,6 +2,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import AddItemToGroupForm from '../AddItemToGroup/AddItemToGroup';
+import styles from './Template.module.css';
 
 const ItemList = ({ group, onItemAdded }) => {
   const [showAddItemForm, setShowAddItemForm] = useState(false);
@@ -15,11 +16,12 @@ const ItemList = ({ group, onItemAdded }) => {
     <li key={item}> { item } </li>
   ));
   return(
-    <>
-      <div key={ group._id }>
-        { group.name }
-        { itemList }
-        <button onClick={() => setShowAddItemForm(!showAddItemForm)}>
+
+    <div key={ group._id } className={ styles.card } >
+      <h6>{ group.name }</h6>
+      { itemList }
+      <div className={ styles.actionGroup }>
+        <button className="small circle" onClick={() => setShowAddItemForm(!showAddItemForm)}>
           { showAddItemForm ? "-" : "+" }
         </button>
         {
@@ -30,7 +32,7 @@ const ItemList = ({ group, onItemAdded }) => {
           )
         }
       </div>
-    </>
+    </div>
   )
 }
 

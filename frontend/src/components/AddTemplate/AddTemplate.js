@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import { useForm } from "react-hook-form";
 import { gql, useMutation } from '@apollo/client';
 
+import styles from './AddTemplate.module.css';
+
 const CREATE_TEMPLATE = gql`
 mutation createTemplate($name: String! ) {
   createTemplate(templateData: {
@@ -37,15 +39,14 @@ function AddTemplate( { onDataSubmitted } ) {
   //console.log(watch("templateName")); // watch input value by passing the name of it
 
   return (
-    <div>
-      Add new Template
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <div className="field">
+      <form onSubmit={handleSubmit(onSubmit)} className={ styles.field }>
         {/* include validation with required or other standard HTML validation rules */}
-        <input {...register("templateName", { required: true })} />
+        <input {...register("templateName", { required: true })} placeholder="Add a new template"/>
         {/* errors will return when field validation fails  */}
         {errors.templateName && <span>This field is required</span>}
 
-        <input type="submit" />
+        <input className={ "button small right-round responsive " + styles.custom } type="submit" value="Add" />
       </form>
     </div>
   )

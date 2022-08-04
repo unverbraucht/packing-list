@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import { useForm } from "react-hook-form";
 import { gql, useMutation } from '@apollo/client';
 
+import styles from './AddItemToGroup.module.css';
+
 const ADD_ITEM = gql`
 mutation addItemToGroup($name: String!, $templateGroupId: String!) {
   addItemToGroup (
@@ -43,14 +45,13 @@ function AddItemToGroupForm( { onDataSubmitted, groupId } ) {
 
   return (
     <div>
-      Add item
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} className={ styles.field }>
         {/* include validation with required or other standard HTML validation rules */}
-        <input {...register("itemName", { required: true })} />
+        <input {...register("itemName", { required: true })} placeholder="Item"/>
         {/* errors will return when field validation fails  */}
         {errors.itemName && <span>This field is required</span>}
 
-        <input type="submit" />
+        <input className={ "button small right-round responsive " + styles.custom } type="submit" value="Add"/>
       </form>
     </div>
   )
