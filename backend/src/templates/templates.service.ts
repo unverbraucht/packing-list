@@ -44,7 +44,6 @@ export class TemplatesService {
       return template;
     }
     const newGroupDoc = new this.templateGroupModel(newGroupDto);
-    // newGroupDoc.items = [];
     const newGroup = await newGroupDoc.save();
     newGroup.name = newGroupDto.name;
     groups.push(newGroup);
