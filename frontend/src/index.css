@@ -17,6 +17,11 @@ body {
   box-sizing: border-box;
 }
 
+nav.top {
+  justify-content: space-between;
+  padding: 0 8rem;
+}
+
 h1, h6 {
   font-family: 'Playfair Display SC', serif;
 }

@@ -10,11 +10,15 @@ const ADD_ITEM = gql`
 mutation addItemToGroup($name: String!, $templateGroupId: String!) {
   addItemToGroup (
     templateGroupId: $templateGroupId,
-    item: $name
+    item: {
+      label: $name
+    }
   ) {
     name,
     lang,
-    items,
+    items {
+      label
+    }
     _id
   }
 }`;

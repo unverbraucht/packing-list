@@ -12,8 +12,8 @@ const ItemList = ({ group, onItemAdded }) => {
     setShowAddItemForm(false);
   }
 
-  const itemList = group.items.map(item => (
-    <li key={item}> { item } </li>
+  const itemList = group.items.map(({ _id, label, checked }) => (
+    <li key={_id}> { label }</li>
   ));
   return(
 

@@ -7,15 +7,40 @@ import './index.css';
 import YourTemplatesPage from './pages/YourTemplates/YourTemplates';
 import reportWebVitals from './reportWebVitals';
 import TemplatePage from './pages/Template/Template';
+// import { accountIcon } from './assets/account.svg'
 import {
   ApolloClient,
   InMemoryCache,
-  ApolloProvider
+  ApolloProvider,
+  createHttpLink
 } from "@apollo/client";
+import { setContext } from '@apollo/client/link/context';
+
+
+import AccountPage from './pages/Account/Account';
+import { UserContextProvider } from './UserContext';
+
+const authLink = setContext((_, { headers }) => {
+  // get the authentication token from local storage if it exists
+  const token = sessionStorage.getItem('access_token');
+  // return the headers to the context so httpLink can read them
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : "",
+    }
+  }
+});
+
+const httpLink = createHttpLink({
+  uri: '/api',
+});
 
 const client = new ApolloClient({
   uri: '/api',
-  cache: new InMemoryCache()
+  cache: new InMemoryCache(),
+  link: authLink.concat(httpLink),
+
 });
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -23,16 +48,23 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <BrowserRouter>
-        <nav class="top"><h1>Packing List App</h1></nav>
-        <main className="responsive">
-          <Routes>
-            <Route path="/" element={<YourTemplatesPage />} />
-            <Route path="template/:templateId" element={<TemplatePage />} />
-          </Routes>
-        </main>
-        <nav className="bottom"><div>About Us</div></nav>
-      </BrowserRouter>
+      <UserContextProvider>
+        <BrowserRouter>
+          <nav className="top">
+            <div className='navbarLeft'></div>
+            <a href="/"><h1>PackApp</h1></a>
+            <div className='navbarRight'><a href="/account"> account </a></div>
+          </nav>
+          <main className="responsive">
+            <Routes>
+              <Route path="/" element={<YourTemplatesPage />} />
+              <Route path="template/:templateId" element={<TemplatePage />} />
+              <Route path="account" element={<AccountPage />} />
+            </Routes>
+          </main>
+          <nav className="bottom"><div>About Us</div></nav>
+        </BrowserRouter>
+      </UserContextProvider>
     </ApolloProvider>
   </React.StrictMode>
 );

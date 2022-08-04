@@ -13,7 +13,11 @@ const GET_TEMPLATE = gql`
       groups {
         name,
         lang,
-        items,
+        items {
+          _id,
+          label,
+          checked
+        }
         _id
       },
       _id
@@ -43,7 +47,7 @@ function Template({ templateId }) {
   const { template } = data;
 
   const templateName = template.name;
-  const groupList = template.groups.map(group => <ItemList group={group} onItemAdded={onDataSubmitted} />);
+  const groupList = template.groups.map(group => <ItemList key={group._id} group={group} onItemAdded={onDataSubmitted} />);
 
   return (
     <div>
