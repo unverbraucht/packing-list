@@ -33,14 +33,25 @@ mutation {
 ```
 
 ```
-{ getAll {
+query { getAll {
   name,
   _id,
+  owner {
+    _id,
+    name
+  },
   groups {
-    _id
-    items
-    name,
-    lang
+    _id,
+    lang,
+    owner {
+      _id,
+      name,
+    },
+    items {
+      _id,
+      label,
+      checked
+    }
   }
 }}
 ```
@@ -48,12 +59,16 @@ mutation {
 ```
 mutation {
  addItemToGroup (
-	templateGroupId: "62b8103423387bbf027fa2f2",
-	item: "sunscreen"
+	templateGroupId: "62eb6d2693c9234a059050c9",
+	item: {
+    label: "Sunscreen"
+  }
 ) {
     name,
     lang,
-    items,
+    items {
+      label
+    }
     _id
   }
 }

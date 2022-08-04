@@ -8,9 +8,10 @@ import { GqlAuthGuard } from '../auth/graphql-jwt-auth.guard';
 import { User } from '../users/schemas/users.schema';
 import { AddGroupDto } from './dto/add-group.dto';
 import { CreateTemplateDto } from './dto/create-template.dto';
-import { Template, TemplateGroup } from './schemas/templates.schema';
+import { ListItem, Template, TemplateGroup } from './schemas/templates.schema';
 import { TemplatesService } from './templates.service';
 import { OptionalJwtAuthGuard } from '../auth/graphql-optional-jwt-auth.guard';
+import { AddItemDto } from './dto/add-item.dto';
 
 const pubSub = new PubSub();
 
@@ -58,7 +59,7 @@ export class TemplatesResolver {
   @Mutation(returns => TemplateGroup)
   async addItemToGroup(
     @Args('templateGroupId') templateGroupId: string,
-    @Args('item') item: string,
+    @Args('item') item: AddItemDto,
     @CurrentUser() user: User,
   ): Promise<TemplateGroup> {
     const group = await this.templateService.addItemToGroup(templateGroupId, item, user._id.toString());

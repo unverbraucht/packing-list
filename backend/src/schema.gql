@@ -13,6 +13,12 @@ type User {
   roles: [String!]!
 }
 
+type ListItem {
+  _id: String!
+  label: String!
+  checked: Boolean
+}
+
 type Template {
   _id: String!
   name: String!
@@ -26,10 +32,10 @@ type TemplateGroup {
   _id: String!
   name: String!
   lang: String!
-  owner: String!
+  owner: User!
 
   """Items"""
-  items: [String!]!
+  items: [ListItem!]!
 }
 
 type Query {
@@ -39,7 +45,7 @@ type Query {
 
 type Mutation {
   addGroup(templateId: String!, groupData: AddGroupDto!): Template!
-  addItemToGroup(templateGroupId: String!, item: String!): TemplateGroup!
+  addItemToGroup(templateGroupId: String!, item: AddItemDto!): TemplateGroup!
   createTemplate(templateData: CreateTemplateDto!): Template!
   removeTemplate(id: String!): Template!
   removeTemplateGroup(templateId: String!, templateGroupId: String!): Template!
@@ -49,6 +55,10 @@ input AddGroupDto {
   name: String!
   lang: String!
   items: [String!] = []
+}
+
+input AddItemDto {
+  label: String!
 }
 
 input CreateTemplateDto {

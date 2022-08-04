@@ -1,10 +1,11 @@
 import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Template, TemplateGroup, TemplateDocument, TemplateGroupDocument } from './schemas/templates.schema';
+import { Template, TemplateGroup, TemplateDocument, TemplateGroupDocument, ListItem } from './schemas/templates.schema';
 import { CreateTemplateDto } from './dto/create-template.dto';
 import { AddGroupDto } from './dto/add-group.dto';
 import { AddItemDto } from './dto/add-item.dto';
+import { User } from 'src/users/schemas/users.schema';
 
 @Injectable()
 export class TemplatesService {
@@ -19,7 +20,15 @@ export class TemplatesService {
   }
 
   async findAll(): Promise<Template[]> {
-    return this.templateModel.find().populate('owner').populate("groups").exec();
+    return this.templateModel
+      .find()
+      .populate({
+        path:     'groups',			
+        populate: { path:  'owner',
+              model: User.name }
+        })
+      .populate('owner')
+      .exec();
   }
 
   async findOneById(id: string): Promise<Template> {
@@ -34,7 +43,7 @@ export class TemplatesService {
   }
 
   async addGroup(id: string, newGroupDto: AddGroupDto, userId: string): Promise<Template> {
-    const template = await this.templateModel.findOne({ _id: id, owner: userId }).populate('groups').exec();
+    const template = await this.templateModel.findOne({ _id: id, owner: userId }).populate('owner').populate('groups').exec();
     if (!template) {
       return null;
     }
@@ -44,6 +53,7 @@ export class TemplatesService {
       return template;
     }
     const newGroupDoc = new this.templateGroupModel(newGroupDto);
+    newGroupDoc.owner = newGroupDto.owner;
     const newGroup = await newGroupDoc.save();
     newGroup.name = newGroupDto.name;
     groups.push(newGroup);
@@ -64,14 +74,17 @@ export class TemplatesService {
       }
     }
     return null;
+
+    // TODO: we should delete dangling groups
     //template.groups.id(templateGroupId).remove();
 
   }
 
   async addItemToGroup(
     groupId: string,
-    newLabel: string,
+    item: AddItemDto,
     userId: string): Promise<TemplateGroup> {
+      const newLabel = item.label;
     const group = await this.templateGroupModel.findOne({ _id: groupId, owner: userId }).exec();
     if (!group) {
       // Group doesn't exist
@@ -79,11 +92,11 @@ export class TemplatesService {
     }
 
     // const groups = await template.groups;
-    if (group.items.find((label) => label == newLabel)) {
+    if (group.items.find(({ label }) => label == newLabel)) {
       // Already exists
       return group;
     }
-    group.items.push(newLabel);
+    group.items.push(ListItem.from(item));
     return await group.save();
   }
 }
