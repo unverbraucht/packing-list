@@ -5,6 +5,7 @@
     "license": "ISC",
     "scripts": {
         "mongodb": "mongod --dbpath ./data",
+        "user-admin": "npx ts-node src/cli-auth.ts",
         "prebuild": "rimraf dist",
         "build": "nest build",
         "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
