@@ -4,9 +4,13 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { MongooseModule } from '@nestjs/mongoose';
-import { TemplatesModule } from './templates/templates.module';
 import { DirectiveLocation, GraphQLDirective } from 'graphql';
+
+import { TemplatesModule } from './templates/templates.module';
+import { AppController } from './app.controller';
 import { upperDirectiveTransformer } from './common/directives/upper-case.directive';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -27,6 +31,9 @@ import { upperDirectiveTransformer } from './common/directives/upper-case.direct
         ],
       },
     }),
+    AuthModule,
+    UsersModule,
   ],
+  controllers: [AppController],
 })
 export class AppModule {}
