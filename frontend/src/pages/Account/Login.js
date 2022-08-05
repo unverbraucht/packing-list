@@ -48,7 +48,7 @@ function Login() {
     <div className={ styles.loginWrapper }>
       <h3> Login </h3>
       <form onSubmit={handleSubmit(onSubmit)} className={ "field " + styles.loginForm }>
-        <input {...register("username", { required: true })} placeholder="username"/>
+        <input {...register("username", { required: true })} placeholder="username" autoFocus/>
         {errors.username && <span>This field is required</span>}
         <input type="password" {...register("password", { required: true })} placeholder="password"/>
         {errors.password && <span>This field is required</span>}

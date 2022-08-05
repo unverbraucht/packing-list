@@ -42,7 +42,7 @@ function AddTemplate( { onDataSubmitted } ) {
     <div className="field">
       <form onSubmit={handleSubmit(onSubmit)} className={ styles.field }>
         {/* include validation with required or other standard HTML validation rules */}
-        <input {...register("templateName", { required: true })} placeholder="Add a new trip"/>
+        <input {...register("templateName", { required: true })} placeholder="Add a new trip" autoFocus/>
         {/* errors will return when field validation fails  */}
         {errors.templateName && <span>This field is required</span>}
 

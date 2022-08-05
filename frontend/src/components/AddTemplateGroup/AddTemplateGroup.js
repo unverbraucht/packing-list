@@ -45,7 +45,7 @@ function AddGroupToTemplate( { templateId, templateName, onDataSubmitted } ) {
     <div>
       <form onSubmit={handleSubmit(onSubmit)} className={ styles.field }>
         {/* include validation with required or other standard HTML validation rules */}
-        <input {...register("groupName", { required: true })} placeholder="Add a new category" />
+        <input {...register("groupName", { required: true })} placeholder="Add a new category" autoFocus/>
         {/* errors will return when field validation fails  */}
         {errors.groupName && <span>This field is required</span>}
 

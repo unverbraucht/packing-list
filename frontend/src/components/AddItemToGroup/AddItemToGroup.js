@@ -51,7 +51,7 @@ function AddItemToGroupForm( { onDataSubmitted, groupId } ) {
     <div>
       <form onSubmit={handleSubmit(onSubmit)} className={ styles.field }>
         {/* include validation with required or other standard HTML validation rules */}
-        <input {...register("itemName", { required: true })} placeholder="Item"/>
+        <input {...register("itemName", { required: true })} placeholder="Item" autoFocus/>
         {/* errors will return when field validation fails  */}
         {errors.itemName && <span>This field is required</span>}
 

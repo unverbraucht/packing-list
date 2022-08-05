@@ -34,3 +34,7 @@ h1, h2, h3 {
 h6 {
   justify-content: start;
 }
+
+button, .button {
+  line-height: 1;
+}
